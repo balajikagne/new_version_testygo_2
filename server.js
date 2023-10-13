@@ -13,7 +13,7 @@ mongoose.connect(DB,{useUnifiedTopology:true,useNewUrlParser:true}).then(()=>{
 
 //
 app.use(cors({
-    origin:["https://deploy-mern-1whq.vercel.app"],
+    origin:["https://new-version-testygo-2-api.vercel.app/"],
     methods:["POST","GET"],
     Credential:true
 }))
