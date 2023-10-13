@@ -1,5 +1,6 @@
 const express = require("express")
 const app=express()
+const cors=require('cors')
 const path =require('dev')
 require('dotenv').config()
 const mongoose=require('mongoose')
@@ -9,17 +10,26 @@ mongoose.connect(DB,{useUnifiedTopology:true,useNewUrlParser:true}).then(()=>{
 }).catch((err)=>{
     console.log("no connection",err)
 })
-if (process.env.NODE_ENV==="production"){
-    app.use(express.static(path.join(__dirname,'/client/build')))
-    app.get('*',(req,res)=>{
-        res.sendFile(path.resolve(__dirname,"client","build","index.html"))
-    })
-}
-else{
-    app.get("/",(req,res)=>{
-        res.send("hellow from node js server")
-    })
-}
+
+//
+app.use(cors({
+    origin:["https://deploy-mern-1whq.vercel.app"],
+    methods:["POST","GET"],
+    Credential:true
+}))
+// if (process.env.NODE_ENV==="production"){
+//     app.use(express.static(path.join(__dirname,'/client/build')))
+//     app.get('*',(req,res)=>{
+//         res.sendFile(path.resolve(__dirname,"client","build","index.html"))
+//     })
+// }
+// else{
+//     app.get("/",(req,res)=>{
+//         res.send("hellow from node js server")
+//     })
+// }
+
+
 const UenCard=require('./mongocom/menuCard')
 
 app.use(express.json())
